@@ -24,6 +24,19 @@ namespace Contract
             }
         }
 
+        public static bool DoesFileExist(string fileFullName)
+        {
+            try
+            {
+                CheckFileEixsts(fileFullName);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public static void CheckDirectoryEixsts(string directory)
         {
             if (string.IsNullOrEmpty(directory))

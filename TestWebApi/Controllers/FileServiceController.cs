@@ -83,5 +83,49 @@ namespace TestWebApi.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         }
+
+        [HttpDelete]
+        [Route("api/file/image")]
+        public async Task<HttpResponseMessage> Delete([FromUri] FileModel fileModel)
+        {
+            try
+            {
+                var filePath = fileModel.FileFullName;
+                if (FileModel.DoesFileExist(filePath))
+                {
+                    await Task.Factory.StartNew(() => File.Delete(filePath));
+                }
+                
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+            }
+        }        
+
+        [HttpPut]
+        [Route("api/file/image")]
+        public async Task<HttpResponseMessage> Update([FromUri] FileModel fileModel)
+        {
+            try
+            {
+                var filePath = fileModel.FileFullName;
+                FileModel.CheckFileEixsts(filePath);
+
+                if (FileModel.DoesFileExist(filePath))
+                {
+                    await Task.Factory.StartNew(() => File.Delete(filePath));
+                }
+
+                var message = await SaveFile(fileModel);
+
+                return message;
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+            }
+        }
     }
 }
