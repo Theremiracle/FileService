@@ -14,13 +14,13 @@ namespace TestConsole
         {
             while(true)
             {
-                Console.Clear();                
-
-                LogInstructions("Starts getting file");
-                GetFile();
+                Console.Clear();
 
                 LogInstructions("Starts saving file");
                 SaveFile();
+
+                LogInstructions("Starts getting file");
+                GetFile();
 
                 Console.WriteLine($"\nExit? (Y/N)");
                 var result = Console.ReadKey();
@@ -33,10 +33,10 @@ namespace TestConsole
 
         static void SaveFile()
         {
-            var fileFullName = FileManager.TestFileFullName;
-            var fileUploadFolder = FileManager.UploadFolderPath;
+            var fileFullName = FileServiceProxy.FileToUpload;
+            var fileUploadFolder = FileServiceProxy.UploadFolderPath;
             Console.Write($"Starts upload file:\n From: {fileFullName} \n   To: {fileUploadFolder}\n\n");
-            var result = FileManager.SaveFile(fileFullName, fileUploadFolder);
+            var result = FileServiceProxy.SaveFile(fileFullName, fileUploadFolder);
 
             result.Wait();
             LogTaskResult(result);
@@ -44,9 +44,9 @@ namespace TestConsole
 
         static void GetFile()
         {
-            var fileFullName = FileManager.TestFileFullName;
+            var fileFullName = FileServiceProxy.FileToDownload;
             Console.Write($"Starts getting file:\n at: {fileFullName} \n\n");
-            var result = FileManager.GetFile(fileFullName);
+            var result = FileServiceProxy.GetFile(fileFullName);
 
             result.Wait();
             LogTaskResult(result);

@@ -31,8 +31,9 @@ namespace TestWebApi.Controllers
         {
             try
             {
-                var filePath = fileModel.FileFullName;
-                FileModel.CheckFileEixsts(filePath);
+                var fileFullName = fileModel.FileFullName;
+                var fileFolder = Path.GetDirectoryName(fileFullName);
+                FileModel.CheckDirectoryEixsts(fileFolder);
 
                 var httpRequest = HttpContext.Current.Request;
                 if (httpRequest.Files.Count < 1)
@@ -45,8 +46,7 @@ namespace TestWebApi.Controllers
                     var postedFile = httpRequest.Files[file];
                     if (postedFile != null)
                     {
-                        await Task.Factory.StartNew(() => postedFile.SaveAs(filePath));
-                        // NOTE: To store in memory use postedFile.InputStream
+                        await Task.Factory.StartNew(() => postedFile.SaveAs(fileFullName));
                         break;
                     }
                 }

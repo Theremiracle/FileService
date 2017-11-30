@@ -11,8 +11,6 @@ namespace Contract
     {
         public string FileFullName { get; set; }
 
-        public string FileUploadFolder { get; set; }
-
         public static void CheckFileEixsts(string fileFullName)
         {
             if (string.IsNullOrEmpty(fileFullName))
@@ -23,6 +21,19 @@ namespace Contract
             if (!File.Exists(fileFullName))
             {
                 throw new Exception($"{fileFullName} does not exit.");
+            }
+        }
+
+        public static void CheckDirectoryEixsts(string directory)
+        {
+            if (string.IsNullOrEmpty(directory))
+            {
+                throw new Exception("Directory is null or empty.");
+            }
+
+            if (!Directory.Exists(directory))
+            {
+                throw new Exception($"{directory} does not exit.");
             }
         }
     }
