@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -19,6 +20,9 @@ namespace TestConsole
                 LogInstructions("Starts saving file");
                 SaveFile();
 
+                LogInstructions("Starts deleting file");
+                DeleteFile();
+
                 LogInstructions("Starts getting file");
                 GetFile();
 
@@ -37,6 +41,16 @@ namespace TestConsole
             var fileUploadFolder = FileServiceProxy.UploadFolderPath;
             Console.Write($"Starts upload file:\n From: {fileFullName} \n   To: {fileUploadFolder}\n\n");
             var result = FileServiceProxy.SaveFile(fileFullName, fileUploadFolder);
+
+            result.Wait();
+            LogTaskResult(result);
+        }
+
+        static void DeleteFile()
+        {
+            var fileFullName = FileServiceProxy.UploadFolderPath + @"\" + Path.GetFileName(FileServiceProxy.FileToUpload);
+            Console.Write($"Starts deleting file:\n at: {fileFullName} \n\n");
+            var result = FileServiceProxy.DeleteFile(fileFullName);
 
             result.Wait();
             LogTaskResult(result);

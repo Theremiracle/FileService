@@ -96,5 +96,31 @@ namespace TestConsole
                 return false;
             }
         }
+
+        public static async Task<bool> DeleteFile(string fileFullName)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    string address = WebApiBaseAddress + "/api/file/image";
+                    var requestUri = BuildUri(address, fileFullName);
+                    var message = await client.DeleteAsync(requestUri);
+
+                    if (message.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+
+                    throw new Exception(message.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Console.WriteLine(e);
+                return false;
+            }
+        }
     }
 }
