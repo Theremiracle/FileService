@@ -11,6 +11,8 @@ namespace Contract
     {
         public string FileFullName { get; set; }
 
+        public string FileUploadFolder { get; set; }
+
         public static void CheckFileEixsts(string fileFullName)
         {
             if (string.IsNullOrEmpty(fileFullName))
