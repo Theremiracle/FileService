@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contract", "Contract\Contract.csproj", "{FCC3A0C2-7D81-4BA5-9CE7-7A8809C3C93B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{525896D9-7C7C-40E7-90FA-55759D1C57FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApi", "TestWebApi\TestWebApi.csproj", "{4E5F0173-4BE8-4478-9114-14C337F5137E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCC3A0C2-7D81-4BA5-9CE7-7A8809C3C93B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCC3A0C2-7D81-4BA5-9CE7-7A8809C3C93B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCC3A0C2-7D81-4BA5-9CE7-7A8809C3C93B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCC3A0C2-7D81-4BA5-9CE7-7A8809C3C93B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{525896D9-7C7C-40E7-90FA-55759D1C57FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{525896D9-7C7C-40E7-90FA-55759D1C57FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{525896D9-7C7C-40E7-90FA-55759D1C57FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{525896D9-7C7C-40E7-90FA-55759D1C57FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E5F0173-4BE8-4478-9114-14C337F5137E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E5F0173-4BE8-4478-9114-14C337F5137E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E5F0173-4BE8-4478-9114-14C337F5137E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E5F0173-4BE8-4478-9114-14C337F5137E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E172AC5-5825-4383-BD1F-E8AB6F164ACF}
+	EndGlobalSection
+EndGlobal
