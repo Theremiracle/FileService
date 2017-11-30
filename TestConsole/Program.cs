@@ -17,6 +17,9 @@ namespace TestConsole
             {
                 Console.Clear();
 
+                LogInstructions("Starts testing if service is ready");
+                Test();
+
                 LogInstructions("Starts saving file");
                 SaveFile();
 
@@ -33,6 +36,14 @@ namespace TestConsole
                     break;
                 }
             }
+        }
+
+        static void Test()
+        {
+            var result = FileServiceProxy.Test();
+
+            result.Wait();
+            LogTaskResult(result);
         }
 
         static void SaveFile()

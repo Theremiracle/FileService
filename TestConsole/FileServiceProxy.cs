@@ -24,12 +24,42 @@ namespace TestConsole
         private static string BuildUri(string address, string fileFullName)
         {
             var builder = new UriBuilder(address);
-            var query = HttpUtility.ParseQueryString(builder.Query);
-            query["FileFullName"] = fileFullName;
-            builder.Query = query.ToString();
+            if (!string.IsNullOrEmpty(fileFullName))
+            {
+                var query = HttpUtility.ParseQueryString(builder.Query);
+                query["FileFullName"] = fileFullName;
+                builder.Query = query.ToString();
+            }
+            
             string url = builder.ToString();
 
             return url;
+        }
+
+        public static async Task<bool> Test()
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    string address = WebApiBaseAddress + "/api/fileservice/test";
+                    var requestUri = BuildUri(address, string.Empty);
+                    var message = await client.GetAsync(requestUri);
+
+                    if (message.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+
+                    throw new Exception(message.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Console.WriteLine(e);
+                return false;
+            }
         }
 
         public static async Task<bool> GetFile(string fileFullName)
