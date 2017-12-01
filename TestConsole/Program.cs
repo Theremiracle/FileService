@@ -16,17 +16,10 @@ namespace TestConsole
             while(true)
             {
                 Console.Clear();
-
-                LogInstructions("Starts testing if service is ready");
+                
                 Test();
-
-                LogInstructions("Starts saving file");
                 SaveFile();
-
-                LogInstructions("Starts deleting file");
                 DeleteFile();
-
-                LogInstructions("Starts getting file");
                 GetFile();
 
                 Console.WriteLine($"\nExit? (Y/N)");
@@ -40,62 +33,47 @@ namespace TestConsole
 
         static void Test()
         {
+            ConsoleUtility.LogInstructions("Starts testing if service is ready");
             var result = FileServiceProxy.Test();
 
             result.Wait();
-            LogTaskResult(result);
+            ConsoleUtility.LogTaskResult(result);
         }
 
         static void SaveFile()
         {
+            ConsoleUtility.LogInstructions("Starts saving file");
             var fileFullName = FileServiceProxy.FileToUpload;
             var fileUploadFolder = FileServiceProxy.UploadFolderPath;
             Console.Write($"Starts upload file:\n From: {fileFullName} \n   To: {fileUploadFolder}\n\n");
             var result = FileServiceProxy.SaveFile(fileFullName, fileUploadFolder);
 
             result.Wait();
-            LogTaskResult(result);
+            ConsoleUtility.LogTaskResult(result);
         }
 
         static void DeleteFile()
         {
+            ConsoleUtility.LogInstructions("Starts deleting file");
             var fileFullName = FileServiceProxy.UploadFolderPath + @"\" + Path.GetFileName(FileServiceProxy.FileToUpload);
             Console.Write($"Starts deleting file:\n at: {fileFullName} \n\n");
             var result = FileServiceProxy.DeleteFile(fileFullName);
 
             result.Wait();
-            LogTaskResult(result);
+            ConsoleUtility.LogTaskResult(result);
         }
 
         static void GetFile()
         {
+            ConsoleUtility.LogInstructions("Starts getting file");
             var fileFullName = FileServiceProxy.FileToDownload;
             Console.Write($"Starts getting file:\n at: {fileFullName} \n\n");
             var result = FileServiceProxy.GetFile(fileFullName);
 
             result.Wait();
-            LogTaskResult(result);
+            ConsoleUtility.LogTaskResult(result);
         }
 
-        static void LogInstructions(string instruction)
-        {
-            Console.WriteLine();
-            Console.WriteLine(new String('-', 50));
-            Console.WriteLine($"Press Enter to {instruction}:");
-            Console.Write(new String('-', 50));
-            Console.ReadLine();
-        }
-
-        static void LogTaskResult(Task<bool> task)
-        {
-            if (task.IsCompleted && task.Result)
-            {
-                Console.Write($"\nSucceeds!!!\n");
-            }
-            else
-            {
-                Console.Write($"\nFailed...\n");
-            }
-        }
+        
     }
 }

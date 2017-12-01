@@ -9,6 +9,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApi", "TestWebApi\TestWebApi.csproj", "{4E5F0173-4BE8-4478-9114-14C337F5137E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestData", "TestData", "{A68D338A-8108-4F8A-A110-4304A6DF9768}"
+	ProjectSection(SolutionItems) = preProject
+		TestData\FileToDownload.png = TestData\FileToDownload.png
+		TestData\FileToUpload.jpg = TestData\FileToUpload.jpg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Upload", "Upload", "{213FC096-3382-45D1-96D8-D00C3BE84954}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Download", "Download", "{7CECD457-DAA5-4A29-8BD5-03142A46440C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +40,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{213FC096-3382-45D1-96D8-D00C3BE84954} = {A68D338A-8108-4F8A-A110-4304A6DF9768}
+		{7CECD457-DAA5-4A29-8BD5-03142A46440C} = {A68D338A-8108-4F8A-A110-4304A6DF9768}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6E172AC5-5825-4383-BD1F-E8AB6F164ACF}

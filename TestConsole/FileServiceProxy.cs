@@ -14,12 +14,13 @@ namespace TestConsole
 {
     static class FileServiceProxy
     {
-        public static string WebApiBaseAddress = @"http://localhost:54170/";
+        public const string WebApiBaseAddress = @"http://localhost:54170/";
+        public const string TestDataFolder = @"K:\Code\EOG\FileService\TestData";
 
-        public static string UploadFolderPath = @"K:\Code\EOG\FileService\TestData\Upload";
-        public static string DownloadFolderPath = @"K:\Code\EOG\FileService\TestData\Download";
-        public static string FileToDownload = @"K:\Code\EOG\FileService\TestData\FileToDownload.png";
-        public static string FileToUpload = @"K:\Code\EOG\FileService\TestData\FileToUpload.jpg";
+        public static readonly string UploadFolderPath = TestDataFolder + @"\Upload";
+        public static readonly string DownloadFolderPath = TestDataFolder + @"\Download";
+        public static readonly string FileToDownload = TestDataFolder + @"\FileToDownload.png";
+        public static readonly string FileToUpload = TestDataFolder + @"\FileToUpload.jpg";
 
         private static string BuildUri(string address, string fileFullName)
         {
