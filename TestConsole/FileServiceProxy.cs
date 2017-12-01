@@ -12,12 +12,19 @@ namespace TestConsole
     static class FileServiceProxy
     {
         public const string WebApiBaseAddress = @"http://localhost:54170/";
-        public const string TestDataFolder = @"K:\Code\EOG\FileService\TestData";
+        public static readonly string TestDataFolder = GetTestDataFolder();
 
         public static readonly string UploadFolderPath = TestDataFolder + @"\Upload";
         public static readonly string DownloadFolderPath = TestDataFolder + @"\Download";
         public static readonly string FileToDownload = TestDataFolder + @"\FileToDownload.png";
         public static readonly string FileToUpload = TestDataFolder + @"\FileToUpload.jpg";
+
+        private static string GetTestDataFolder()
+        {
+            var dir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = Directory.GetParent(dir).Parent.Parent.Parent.FullName + @"\TestData";
+            return path;
+        }
 
         private static string BuildUri(string address, string fileFullName)
         {
