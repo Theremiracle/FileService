@@ -61,15 +61,17 @@ namespace TestWebApi.Controllers
                 var filePath = fileModel.FileFullName;
                 FileModel.CheckFileEixsts(filePath);
 
-                using (var fileStream = new FileStream(filePath, FileMode.Open))
+                var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    var response = new HttpResponseMessage(HttpStatusCode.OK)
-                    {
-                        Content = new StreamContent(fileStream)
-                    };
-                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
-                    return response;
-                }
+                    Content = new StreamContent(fileStream)
+                };
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("Attachment");
+                response.Content.Headers.ContentDisposition.FileName = Path.GetFileName(filePath);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                response.Content.Headers.Expires = new DateTimeOffset(DateTime.Now.AddDays(-1));
+
+                return response;
             }
             catch (Exception e)
             {

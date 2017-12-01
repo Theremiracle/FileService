@@ -80,6 +80,12 @@ namespace TestConsole
 
                     if (message.IsSuccessStatusCode)
                     {
+                        string saveFileFullName = DownloadFolderPath + @"\" + Path.GetFileName(fileFullName);
+                        using (Stream contentStream = await message.Content.ReadAsStreamAsync(),
+                            stream = new FileStream(saveFileFullName, FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            await contentStream.CopyToAsync(stream);
+                        }
                         return true;
                     }
 
