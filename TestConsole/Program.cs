@@ -17,9 +17,9 @@ namespace TestConsole
             {
                 Console.Clear();
                 
-                Test();
-                SaveFile();
-                DeleteFile();
+                //Test();
+                //SaveFile();
+                //DeleteFile();
                 GetFile();
 
                 Console.WriteLine($"\nExit? (Y/N)");
