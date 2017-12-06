@@ -20,9 +20,6 @@ namespace Client.WpfApp.ViewModels
             InitializeCommands();
         }
 
-        [Dependency]
-        public StatusViewModel StatusViewModel { get; set; }
-
         private void InitializeCommands()
         {
             CancelCommand = new DelegateCommand(OnCancel, CanCancel);
@@ -35,6 +32,10 @@ namespace Client.WpfApp.ViewModels
             DownloadImageCommand = new DelegateCommand(OnDownloadImge, CanDownloadImage);
         }
 
+        [Dependency]
+        public StatusViewModel StatusViewModel { get; set; }
+
+        #region Properties
         private string _webApiAddress;
         public string WebApiAddress
         {
@@ -71,6 +72,7 @@ namespace Client.WpfApp.ViewModels
         }
 
         public bool CanStartService => !IsConnecting && !string.IsNullOrEmpty(WebApiAddress);
+        #endregion
 
         #region Commands
         public DelegateCommand TestConnectionCommand { get; private set; }
@@ -148,7 +150,6 @@ namespace Client.WpfApp.ViewModels
 
         private Task<bool> DownloadFileAsync()
         {
-            SendLogMessage("Starts getting file");
             var fileFullName = FileServiceProxy.FileToDownload;
             SendLogMessage($"Starts getting file at: {fileFullName}");
             return _fileServer.GetFileAsync(fileFullName);
@@ -175,7 +176,6 @@ namespace Client.WpfApp.ViewModels
 
         private Task<bool> DeleteFileAsync()
         {
-            SendLogMessage("Starts deleting file");
             var fileFullName = FileServiceProxy.UploadFolderPath + @"\" + Path.GetFileName(FileServiceProxy.FileToUpload);
             SendLogMessage($"Starts deleting file at: {fileFullName}");
             return _fileServer.DeleteFileAsync(fileFullName);
@@ -191,9 +191,22 @@ namespace Client.WpfApp.ViewModels
         public DelegateCommand UploadImageCommand { get; private set; }
         private void OnUploadImge()
         {
-            IsConnecting = true;
+            ExecuteCommand(UploadImage);
+        }
+        private void UploadImage()
+        {
+            var result = UploadImageAsync();
 
-            IsConnecting = false;
+            result.Wait();
+            LogTaskResult(result);
+        }
+
+        private Task<bool> UploadImageAsync()
+        {
+            var fileFullName = FileServiceProxy.FileToUpload;
+            var fileUploadFolder = FileServiceProxy.UploadFolderPath;
+            SendLogMessage($"Starts upload image: From: {fileFullName} To: {fileUploadFolder}");
+            return _fileServer.SaveImageAsync(fileFullName, fileUploadFolder);
         }
         private bool CanUploadImage()
         {
@@ -203,9 +216,21 @@ namespace Client.WpfApp.ViewModels
         public DelegateCommand DownloadImageCommand { get; private set; }
         private void OnDownloadImge()
         {
-            IsConnecting = true;
+            ExecuteCommand(DownloadImage);
+        }
+        private void DownloadImage()
+        {
+            var result = DownloadImageAsync();
 
-            IsConnecting = false;
+            result.Wait();
+            LogTaskResult(result);
+        }
+
+        private Task<bool> DownloadImageAsync()
+        {
+            var fileFullName = FileServiceProxy.FileToDownload;
+            SendLogMessage($"Starts getting image at: {fileFullName}");
+            return _fileServer.GetImageAsync(fileFullName);
         }
         private bool CanDownloadImage()
         {
@@ -238,18 +263,18 @@ namespace Client.WpfApp.ViewModels
 
         private void SendLogMessage(string message)
         {
-            LogMessage += $"{DateTime.Now} {message}";
+            LogMessage += $"\n{DateTime.Now} {message}";
         }
 
         private void LogTaskResult(Task<bool> task)
         {
             if (task.IsCompleted && task.Result)
             {
-                LogMessage += $"\n{DateTime.Now} Succeeds!!!\n\n";
+                LogMessage += $"\n{DateTime.Now} Succeeds!!!\n";
             }
             else
             {
-                LogMessage += $"\n{DateTime.Now} Failed...\n\n";
+                LogMessage += $"\n{DateTime.Now} Failed...\n";
             }
         }
 

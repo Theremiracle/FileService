@@ -61,10 +61,11 @@ namespace ServiceProxy
             throw new Exception(message.ToString());
         }
 
+        #region File
         public async Task<bool> GetFileAsync(string fileFullName)
         {
             FileUtil.CheckFileEixsts(fileFullName);
-            string address = DefaultWebApiBaseAddress + "/api/file/image";
+            string address = DefaultWebApiBaseAddress + "/api/file";
             var requestUri = BuildUri(address, fileFullName);
             var message = await _client.GetAsync(requestUri);
 
@@ -95,7 +96,7 @@ namespace ServiceProxy
                 content.Add(fileContent);
 
                 string fileFullNameToBeUploaded = $"{fileUploadFolder}" + @"\" + Path.GetFileName(uploadeFileFullName);
-                string address = DefaultWebApiBaseAddress + "/api/file/image";
+                string address = DefaultWebApiBaseAddress + "/api/file";
                 var requestUri = BuildUri(address, fileFullNameToBeUploaded);
                 var message = await _client.PostAsync(requestUri, content);
 
@@ -110,7 +111,7 @@ namespace ServiceProxy
 
         public async Task<bool> DeleteFileAsync(string fileFullName)
         {
-            string address = DefaultWebApiBaseAddress + "/api/file/image";
+            string address = DefaultWebApiBaseAddress + "/api/file";
             var requestUri = BuildUri(address, fileFullName);
             var message = await _client.DeleteAsync(requestUri);
 
@@ -121,5 +122,55 @@ namespace ServiceProxy
 
             throw new Exception(message.ToString());
         }
+        #endregion
+
+        #region Image
+        public async Task<bool> GetImageAsync(string fileFullName)
+        {
+            FileUtil.CheckFileEixsts(fileFullName);
+            string address = DefaultWebApiBaseAddress + "/api/file/image";
+            var requestUri = BuildUri(address, fileFullName);
+            var message = await _client.GetAsync(requestUri);
+
+            if (message.IsSuccessStatusCode)
+            {
+                string saveFileFullName = DownloadFolderPath + @"\" + Path.GetFileName(fileFullName);
+                using (Stream contentStream = await message.Content.ReadAsStreamAsync(),
+                    stream = new FileStream(saveFileFullName, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    await contentStream.CopyToAsync(stream);
+                }
+                return true;
+            }
+
+            throw new Exception(message.ToString());
+        }
+
+        public async Task<bool> SaveImageAsync(string uploadeFileFullName, string fileUploadFolder)
+        {
+            FileUtil.CheckFileEixsts(uploadeFileFullName);
+            using (var content = new MultipartFormDataContent())
+            {
+                var fileContent = new StreamContent(File.OpenRead(uploadeFileFullName));
+                fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = uploadeFileFullName
+                };
+                content.Add(fileContent);
+
+                string fileFullNameToBeUploaded = $"{fileUploadFolder}" + @"\" + Path.GetFileName(uploadeFileFullName);
+                string address = DefaultWebApiBaseAddress + "/api/file/image";
+                var requestUri = BuildUri(address, fileFullNameToBeUploaded);
+                var message = await _client.PostAsync(requestUri, content);
+
+                if (message.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+
+                throw new Exception(message.ToString());
+            }
+        }
+        #endregion
     }
 }

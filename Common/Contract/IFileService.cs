@@ -15,5 +15,9 @@ namespace Common.Contract
         Task<bool> SaveFileAsync(string uploadeFileFullName, string fileUploadFolder);
 
         Task<bool> DeleteFileAsync(string fileFullName);
+
+        Task<bool> GetImageAsync(string fileFullName);
+
+        Task<bool> SaveImageAsync(string uploadeFileFullName, string fileUploadFolder);
     }
 }

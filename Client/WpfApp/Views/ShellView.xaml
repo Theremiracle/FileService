@@ -48,7 +48,7 @@
                 </Grid>
                 
             </TabItem>
-            <TabItem Header="Log">
+            <TabItem Header="Log" IsSelected="True">
                 <TextBox IsReadOnly="True" Background="LightYellow"
                          Text="{Binding LogMessage, Mode=OneWay}"/>
             </TabItem>
