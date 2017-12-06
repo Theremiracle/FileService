@@ -6,6 +6,7 @@ namespace Client.ConsoleApp
 {
     class Program
     {
+        static FileServiceProxy FileServiceProxy = new FileServiceProxy();
         static void Main(string[] args)
         {
             while(true)
@@ -29,7 +30,7 @@ namespace Client.ConsoleApp
         static void Test()
         {
             ConsoleUtility.LogInstructions("Starts testing if service is ready");
-            var result = FileServiceProxy.Test();
+            var result = FileServiceProxy.IsConnectionReadyAsync();
 
             result.Wait();
             ConsoleUtility.LogTaskResult(result);
@@ -41,7 +42,7 @@ namespace Client.ConsoleApp
             var fileFullName = FileServiceProxy.FileToUpload;
             var fileUploadFolder = FileServiceProxy.UploadFolderPath;
             Console.Write($"Starts upload file:\n From: {fileFullName} \n   To: {fileUploadFolder}\n\n");
-            var result = FileServiceProxy.SaveFile(fileFullName, fileUploadFolder);
+            var result = FileServiceProxy.SaveFileAsync(fileFullName, fileUploadFolder);
 
             result.Wait();
             ConsoleUtility.LogTaskResult(result);
@@ -52,7 +53,7 @@ namespace Client.ConsoleApp
             ConsoleUtility.LogInstructions("Starts deleting file");
             var fileFullName = FileServiceProxy.UploadFolderPath + @"\" + Path.GetFileName(FileServiceProxy.FileToUpload);
             Console.Write($"Starts deleting file:\n at: {fileFullName} \n\n");
-            var result = FileServiceProxy.DeleteFile(fileFullName);
+            var result = FileServiceProxy.DeleteFileAsync(fileFullName);
 
             result.Wait();
             ConsoleUtility.LogTaskResult(result);
@@ -63,7 +64,7 @@ namespace Client.ConsoleApp
             ConsoleUtility.LogInstructions("Starts getting file");
             var fileFullName = FileServiceProxy.FileToDownload;
             Console.Write($"Starts getting file:\n at: {fileFullName} \n\n");
-            var result = FileServiceProxy.GetFile(fileFullName);
+            var result = FileServiceProxy.GetFileAsync(fileFullName);
 
             result.Wait();
             ConsoleUtility.LogTaskResult(result);

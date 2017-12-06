@@ -1,0 +1,55 @@
+﻿<Window x:Class="Client.WpfApp.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client.WpfApp.Views"
+        xmlns:viewModels="clr-namespace:Client.WpfApp.ViewModels"
+        mc:Ignorable="d"
+        Title="ShellView" Height="600" Width="900" WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance Type=viewModels:ShellViewModel, IsDesignTimeCreatable=False}">
+    <DockPanel Margin="5,5,5,0">
+        <DockPanel DockPanel.Dock="Top">
+            <Label DockPanel.Dock="Left">Web API Address: </Label>
+            <TextBox Text="{Binding WebApiAddress}"
+                     VerticalAlignment="Top"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <Button Command="{Binding UploadFileCommand}">Upload File</Button>
+                <Button Command="{Binding DownloadFileCommand}">Download File</Button>
+                <Button Command="{Binding DeleteFileCommand}">Delete File</Button>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Command="{Binding UploadImageCommand}">Upload Image</Button>
+                <Button Command="{Binding DownloadImageCommand}">Download Image</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Command="{Binding CancelCommand}">Cancel</Button>
+            </StackPanel>
+        </DockPanel>
+        <local:StatusView DockPanel.Dock="Bottom" DataContext="{Binding StatusViewModel}"/>
+        <TabControl>
+            <TabItem Header="Images">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <DockPanel Grid.Column="0">
+                        <Label>Upload To</Label>
+                        <Image Source="..\Resources\Images\MapWorld.jpg" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="1">
+                        <Label>Download From</Label>
+                        <Image Source="..\Resources\Images\MapUS.jpg" />
+                    </DockPanel>
+                </Grid>
+                
+            </TabItem>
+            <TabItem Header="Log">
+                <TextBox IsReadOnly="True" Background="LightYellow"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
