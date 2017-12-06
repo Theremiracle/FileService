@@ -15,19 +15,16 @@
                      VerticalAlignment="Top"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top">
-            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+            <StackPanel DockPanel.Dock="Left">
                 <Button Command="{Binding UploadFileCommand}">Upload File</Button>
                 <Button Command="{Binding DownloadFileCommand}">Download File</Button>
                 <Button Command="{Binding DeleteFileCommand}">Delete File</Button>
             </StackPanel>
-            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <Button Command="{Binding UploadImageCommand}">Upload Image</Button>
-                <Button Command="{Binding DownloadImageCommand}">Download Image</Button>
-                <Button Command="{Binding ResetImageCommand}">Reset to default Image</Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Command="{Binding TestConnectionCommand}">Test Connection</Button>
+            <StackPanel DockPanel.Dock="Right">
                 <Button Command="{Binding CancelCommand}">Cancel</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding TestConnectionCommand}">Test Connection</Button>                
             </StackPanel>
         </DockPanel>
         <local:StatusView DockPanel.Dock="Bottom" DataContext="{Binding StatusViewModel}"/>
@@ -36,20 +33,33 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1" Background="Gray" Width="2" />
                     <DockPanel Grid.Column="0">
-                        <Label>Upload To</Label>
-                        <Image x:Name="UploadedImage" Source="..\Resources\Images\MapWorld.jpg" />
+                        <Label DockPanel.Dock="Top">Image to be Uploaded</Label>
+                        <StackPanel DockPanel.Dock="Bottom">
+                            <Button Command="{Binding UploadImageCommand}">Upload Image</Button>
+                            <Button Command="{Binding ChangeImageCommand}">Change Image</Button>
+                        </StackPanel>
+                        <Border Style="{StaticResource ImageBorderStyle}">
+                            <Image x:Name="UploadedImage" Source="..\Resources\Images\MapTexas.png" />
+                        </Border>
                     </DockPanel>
-                    <DockPanel Grid.Column="1">
-                        <Label>Download From</Label>
-                        <Image x:Name="DownloadedImage" />
+                    <DockPanel Grid.Column="2">
+                        <Label DockPanel.Dock="Top">Image Downloaded</Label>
+                        <StackPanel DockPanel.Dock="Bottom">
+                            <Button Command="{Binding DownloadImageCommand}">Download Image</Button>
+                            <Button Command="{Binding ResetImageCommand}">Reset to default Image</Button>
+                        </StackPanel>
+                        <Border Style="{StaticResource ImageBorderStyle}">
+                            <Image x:Name="DownloadedImage" />
+                        </Border>                        
                     </DockPanel>
-                </Grid>
-                
+                </Grid>                
             </TabItem>
-            <TabItem Header="Log" IsSelected="True">
+            <TabItem Header="Log">
                 <TextBox IsReadOnly="True" Background="LightYellow"
                          Text="{Binding LogMessage, Mode=OneWay}"/>
             </TabItem>

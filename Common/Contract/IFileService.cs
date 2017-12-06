@@ -19,6 +19,6 @@ namespace Common.Contract
 
         Task<Stream> GetImageAsync(string fileFullName);
 
-        Task<bool> SaveImageAsync(string uploadeFileFullName, string fileUploadFolder);
+        Task<bool> SaveImageAsync(Byte[] bytes, string filePathUploadedTo);
     }
 }

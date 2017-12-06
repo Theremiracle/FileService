@@ -4,6 +4,10 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Practices.Unity;
+using System;
+using System.Runtime.InteropServices;
+using System.Drawing;
+using Client.WpfApp.Helpers;
 
 namespace Client.WpfApp.Views
 {
@@ -28,6 +32,7 @@ namespace Client.WpfApp.Views
             {
                 _eventAggregator = value;
                 _eventAggregator.GetEvent<ImageDownloadeEvent>().Subscribe(OnImageDownloade, ThreadOption.UIThread);
+                _eventAggregator.GetEvent<ImageUploadRequestedEvent>().Subscribe(OnImageUploadRequested, ThreadOption.UIThread);
             }
         }
 
@@ -40,7 +45,7 @@ namespace Client.WpfApp.Views
         {
             if (stream == null)
             {
-                var uri = new System.Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/MapUS.jpg");
+                var uri = new Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/MapUS.jpg");
                 DownloadedImage.Source = new BitmapImage(uri);
                 return;
             }
@@ -49,5 +54,14 @@ namespace Client.WpfApp.Views
                                                   BitmapCreateOptions.None,
                                                   BitmapCacheOption.OnLoad);
         }
+
+        private void OnImageUploadRequested(Action<Byte[]> action)
+        {
+            if (action == null) return;
+
+            var bytes = ImageHelper.ConvertBitmapSourceToByteArray(UploadedImage.Source);
+
+            action.Invoke(bytes);
+        }        
     }
 }

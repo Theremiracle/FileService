@@ -194,22 +194,29 @@ namespace Client.WpfApp.ViewModels
         public DelegateCommand UploadImageCommand { get; private set; }
         private void OnUploadImge()
         {
-            ExecuteCommand(UploadImage);
+            _eventAggregator.GetEvent<ImageUploadRequestedEvent>().Publish(DoUploadImage);
         }
-        private void UploadImage()
+
+        private void DoUploadImage(Byte[] bytes)
         {
-            var result = UploadImageAsync();
+            ExecuteCommand(() => UploadImage(bytes));
+        }
+
+        private void UploadImage(Byte[] bytes)
+        {
+            var result = UploadImageAsync(bytes);
 
             result.Wait();
             LogTaskResult(result);
         }
 
-        private Task<bool> UploadImageAsync()
+        private Task<bool> UploadImageAsync(Byte[] bytes)
         {
             var fileFullName = FileServiceProxy.FileToUpload;
             var fileUploadFolder = FileServiceProxy.UploadFolderPath;
+            var filePathUploadedTo = fileUploadFolder + @"\" + Path.GetFileName(fileFullName);
             SendLogMessage($"Starts upload image: From: {fileFullName} To: {fileUploadFolder}");
-            return _fileServer.SaveImageAsync(fileFullName, fileUploadFolder);
+            return _fileServer.SaveImageAsync(bytes, filePathUploadedTo);
         }
         private bool CanUploadImage()
         {

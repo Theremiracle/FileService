@@ -138,6 +138,20 @@ namespace Server.AspWebApi.Controllers
                 FileUtil.CheckDirectoryEixsts(fileFolder);
 
                 var httpRequest = HttpContext.Current.Request;
+                if (httpRequest.Files.Count < 1)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
+
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    if (postedFile != null)
+                    {
+                        await Task.Factory.StartNew(() => postedFile.SaveAs(fileFullName));
+                        break;
+                    }
+                }
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }

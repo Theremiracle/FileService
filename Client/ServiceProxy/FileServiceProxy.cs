@@ -141,21 +141,19 @@ namespace ServiceProxy
             throw new Exception(message.ToString());
         }
 
-        public async Task<bool> SaveImageAsync(string uploadeFileFullName, string fileUploadFolder)
+        public async Task<bool> SaveImageAsync(Byte[] bytes, string filePathUploadedTo)
         {
-            FileUtil.CheckFileEixsts(uploadeFileFullName);
             using (var content = new MultipartFormDataContent())
             {
-                var fileContent = new StreamContent(File.OpenRead(uploadeFileFullName));
+                var fileContent = new StreamContent(new MemoryStream(bytes));
                 fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                 {
-                    FileName = uploadeFileFullName
+                    FileName = "Image"
                 };
                 content.Add(fileContent);
-
-                string fileFullNameToBeUploaded = $"{fileUploadFolder}" + @"\" + Path.GetFileName(uploadeFileFullName);
+                
                 string address = DefaultWebApiBaseAddress + "/api/file/image";
-                var requestUri = BuildUri(address, fileFullNameToBeUploaded);
+                var requestUri = BuildUri(address, filePathUploadedTo);
                 var message = await _client.PostAsync(requestUri, content);
 
                 if (message.IsSuccessStatusCode)
