@@ -25,6 +25,7 @@
                 <Button Command="{Binding DownloadImageCommand}">Download Image</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Command="{Binding TestConnectionCommand}">Test Connection</Button>
                 <Button Command="{Binding CancelCommand}">Cancel</Button>
             </StackPanel>
         </DockPanel>
@@ -48,7 +49,8 @@
                 
             </TabItem>
             <TabItem Header="Log">
-                <TextBox IsReadOnly="True" Background="LightYellow"/>
+                <TextBox IsReadOnly="True" Background="LightYellow"
+                         Text="{Binding LogMessage, Mode=OneWay}"/>
             </TabItem>
         </TabControl>
     </DockPanel>
