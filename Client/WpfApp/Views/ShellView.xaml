@@ -23,6 +23,7 @@
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <Button Command="{Binding UploadImageCommand}">Upload Image</Button>
                 <Button Command="{Binding DownloadImageCommand}">Download Image</Button>
+                <Button Command="{Binding ResetImageCommand}">Reset to default Image</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Command="{Binding TestConnectionCommand}">Test Connection</Button>
@@ -39,11 +40,11 @@
                     </Grid.ColumnDefinitions>
                     <DockPanel Grid.Column="0">
                         <Label>Upload To</Label>
-                        <Image Source="..\Resources\Images\MapWorld.jpg" />
+                        <Image x:Name="UploadedImage" Source="..\Resources\Images\MapWorld.jpg" />
                     </DockPanel>
                     <DockPanel Grid.Column="1">
                         <Label>Download From</Label>
-                        <Image Source="..\Resources\Images\MapUS.jpg" />
+                        <Image x:Name="DownloadedImage" />
                     </DockPanel>
                 </Grid>
                 

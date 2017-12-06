@@ -1,4 +1,5 @@
 ﻿using Client.WpfApp.Bases;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,9 @@ namespace Client.WpfApp.ViewModels
 {
     class StatusViewModel : ViewModelBase
     {
+        public StatusViewModel(IEventAggregator eventAggregator) : base(eventAggregator)
+        {
+
+        }
     }
 }

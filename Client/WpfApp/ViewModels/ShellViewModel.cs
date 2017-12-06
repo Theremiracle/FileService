@@ -6,13 +6,15 @@ using ServiceProxy;
 using Common.Contract;
 using Microsoft.Practices.Unity;
 using System.IO;
+using Client.WpfApp.Events;
+using Prism.Events;
 
 namespace Client.WpfApp.ViewModels
 {
     class ShellViewModel : ViewModelBase
     {
         private readonly IFileService _fileServer;
-        public ShellViewModel(IFileService fileService)
+        public ShellViewModel(IFileService fileService, IEventAggregator eventAggregator) : base(eventAggregator)
         {
             _fileServer = fileService;
             _webApiAddress = FileServiceProxy.DefaultWebApiBaseAddress;
@@ -30,6 +32,7 @@ namespace Client.WpfApp.ViewModels
             DeleteFileCommand = new DelegateCommand(OnDeleteFile, CanDeleteFile);
             UploadImageCommand = new DelegateCommand(OnUploadImge, CanUploadImage);
             DownloadImageCommand = new DelegateCommand(OnDownloadImge, CanDownloadImage);
+            ResetImageCommand = new DelegateCommand(OnResetImage, CanResetImage);
         }
 
         [Dependency]
@@ -226,15 +229,29 @@ namespace Client.WpfApp.ViewModels
             LogTaskResult(result);
         }
 
-        private Task<bool> DownloadImageAsync()
+        private async Task<bool> DownloadImageAsync()
         {
             var fileFullName = FileServiceProxy.FileToDownload;
             SendLogMessage($"Starts getting image at: {fileFullName}");
-            return _fileServer.GetImageAsync(fileFullName);
+            var stream = await _fileServer.GetImageAsync(fileFullName);
+            _eventAggregator.GetEvent<ImageDownloadeEvent>().Publish(stream);
+
+            return true;
         }
         private bool CanDownloadImage()
         {
             return CanStartService;
+        }
+
+        public DelegateCommand ResetImageCommand { get; private set; }
+        private void OnResetImage()
+        {
+            _eventAggregator.GetEvent<ImageDownloadeEvent>().Publish(null);
+        }        
+
+        private bool CanResetImage()
+        {
+            return true;
         }
         #endregion
 
@@ -286,6 +303,7 @@ namespace Client.WpfApp.ViewModels
 
             UploadImageCommand.RaiseCanExecuteChanged();
             DownloadImageCommand.RaiseCanExecuteChanged();
+            ResetImageCommand.RaiseCanExecuteChanged();
         }
         #endregion
     }

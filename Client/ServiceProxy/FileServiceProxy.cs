@@ -125,7 +125,7 @@ namespace ServiceProxy
         #endregion
 
         #region Image
-        public async Task<bool> GetImageAsync(string fileFullName)
+        public async Task<Stream> GetImageAsync(string fileFullName)
         {
             FileUtil.CheckFileEixsts(fileFullName);
             string address = DefaultWebApiBaseAddress + "/api/file/image";
@@ -135,12 +135,7 @@ namespace ServiceProxy
             if (message.IsSuccessStatusCode)
             {
                 string saveFileFullName = DownloadFolderPath + @"\" + Path.GetFileName(fileFullName);
-                using (Stream contentStream = await message.Content.ReadAsStreamAsync(),
-                    stream = new FileStream(saveFileFullName, FileMode.Create, FileAccess.Write, FileShare.None))
-                {
-                    await contentStream.CopyToAsync(stream);
-                }
-                return true;
+                return await message.Content.ReadAsStreamAsync();
             }
 
             throw new Exception(message.ToString());

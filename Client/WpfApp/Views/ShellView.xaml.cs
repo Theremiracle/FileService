@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Client.WpfApp.Events;
+using Prism.Events;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Microsoft.Practices.Unity;
 
 namespace Client.WpfApp.Views
 {
@@ -22,6 +15,39 @@ namespace Client.WpfApp.Views
         public ShellView()
         {
             InitializeComponent();
+            SetDownloadedImage(null);
+        }
+
+        private IEventAggregator _eventAggregator;
+
+        [Dependency]
+        public IEventAggregator EventAggregator
+        {
+            get { return _eventAggregator; }
+            set
+            {
+                _eventAggregator = value;
+                _eventAggregator.GetEvent<ImageDownloadeEvent>().Subscribe(OnImageDownloade, ThreadOption.UIThread);
+            }
+        }
+
+        private void OnImageDownloade(Stream stream)
+        {
+            SetDownloadedImage(stream);
+        }
+
+        private void SetDownloadedImage(Stream stream)
+        {
+            if (stream == null)
+            {
+                var uri = new System.Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/MapUS.jpg");
+                DownloadedImage.Source = new BitmapImage(uri);
+                return;
+            }
+
+            DownloadedImage.Source = BitmapFrame.Create(stream,
+                                                  BitmapCreateOptions.None,
+                                                  BitmapCacheOption.OnLoad);
         }
     }
 }

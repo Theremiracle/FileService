@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Common.Contract
 
         Task<bool> DeleteFileAsync(string fileFullName);
 
-        Task<bool> GetImageAsync(string fileFullName);
+        Task<Stream> GetImageAsync(string fileFullName);
 
         Task<bool> SaveImageAsync(string uploadeFileFullName, string fileUploadFolder);
     }
