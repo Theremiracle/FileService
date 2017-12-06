@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contract", "Contract\Contract.csproj", "{FCC3A0C2-7D81-4BA5-9CE7-7A8809C3C93B}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Upload", "Upload", "{213FC096-3382-45D1-96D8-D00C3BE84954}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Download", "Download", "{7CECD457-DAA5-4A29-8BD5-03142A46440C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "TestWpf\TestWpf.csproj", "{598CC4BD-97F3-4FF7-A3F7-BD58C30FADEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{4E5F0173-4BE8-4478-9114-14C337F5137E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E5F0173-4BE8-4478-9114-14C337F5137E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E5F0173-4BE8-4478-9114-14C337F5137E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{598CC4BD-97F3-4FF7-A3F7-BD58C30FADEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{598CC4BD-97F3-4FF7-A3F7-BD58C30FADEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{598CC4BD-97F3-4FF7-A3F7-BD58C30FADEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{598CC4BD-97F3-4FF7-A3F7-BD58C30FADEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
