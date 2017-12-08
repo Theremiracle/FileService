@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Client.WpfApp.Bases;
 using Prism.Commands;
 using ServiceProxy;
 using Common.Contract;
@@ -30,6 +29,7 @@ namespace Client.WpfApp.ViewModels
             UploadFileCommand = new DelegateCommand(OnUploadFile, CanUploadFile);
             DownloadFileCommand = new DelegateCommand(OnDownloadFile, CanDownloadFile);
             DeleteFileCommand = new DelegateCommand(OnDeleteFile, CanDeleteFile);
+
             UploadImageCommand = new DelegateCommand(OnUploadImge, CanUploadImage);
             DownloadImageCommand = new DelegateCommand(OnDownloadImge, CanDownloadImage);
             ResetImageCommand = new DelegateCommand(OnResetImage, CanResetImage);

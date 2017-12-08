@@ -1,5 +1,4 @@
-﻿using Client.WpfApp.Bases;
-using Prism.Events;
+﻿using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

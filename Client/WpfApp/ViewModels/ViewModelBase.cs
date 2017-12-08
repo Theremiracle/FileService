@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Prism.Mvvm;
 using Prism.Events;
 
-namespace Client.WpfApp.Bases
+namespace Client.WpfApp.ViewModels
 {
     abstract class ViewModelBase : BindableBase
     {
