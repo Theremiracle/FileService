@@ -1,12 +1,108 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Client.WpfApp.Events;
+using Common.Contract;
+using Prism.Commands;
+using Prism.Events;
+using ServiceProxy;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Client.WpfApp.Commands
 {
-    public class ImageCommands : CommandsBase
+    class ImageCommands : CommandsBase
     {
+        private readonly IFileService _fileServer;
+
+        public ImageCommands(IFileService fileService, IEventAggregator eventAggregator) : base(eventAggregator)
+        {
+            _fileServer = fileService;
+            Initialize();
+        }
+
+        public override void Initialize()
+        {
+            UploadImageCommand = new DelegateCommand(OnUploadImge, CanUploadImage);
+            DownloadImageCommand = new DelegateCommand(OnDownloadImge, CanDownloadImage);
+            ResetImageCommand = new DelegateCommand(OnResetImage, CanResetImage);
+        }
+
+        public override void RaiseCommandCanExecuteChanged()
+        {
+            UploadImageCommand.RaiseCanExecuteChanged();
+            DownloadImageCommand.RaiseCanExecuteChanged();
+            ResetImageCommand.RaiseCanExecuteChanged();
+        }
+
+        #region Image Commands
+        public DelegateCommand UploadImageCommand { get; private set; }
+        private void OnUploadImge()
+        {
+            EventAggregator.GetEvent<ImageUploadRequestedEvent>().Publish(DoUploadImage);
+        }
+
+        private async void DoUploadImage(Byte[] bytes)
+        {
+            await ExecuteCommand(() => UploadImage(bytes));
+        }
+
+        private void UploadImage(Byte[] bytes)
+        {
+            var result = UploadImageAsync(bytes);
+
+            result.Wait();
+            LogTaskResult(result);
+        }
+
+        private Task<bool> UploadImageAsync(Byte[] bytes)
+        {
+            var fileFullName = FileServiceProxy.FileToUpload;
+            var fileUploadFolder = FileServiceProxy.UploadFolderPath;
+            var filePathUploadedTo = fileUploadFolder + @"\" + Path.GetFileName(fileFullName);
+            SendLogMessage($"Starts upload image: From: {fileFullName} To: {fileUploadFolder}");
+            return _fileServer.SaveImageAsync(bytes, filePathUploadedTo);
+        }
+        private bool CanUploadImage()
+        {
+            return CanStartService;
+        }
+
+        public DelegateCommand DownloadImageCommand { get; private set; }
+        private async void OnDownloadImge()
+        {
+            await ExecuteCommand(DownloadImage);
+        }
+        private void DownloadImage()
+        {
+            var result = DownloadImageAsync();
+
+            result.Wait();
+            LogTaskResult(result);
+        }
+
+        private async Task<bool> DownloadImageAsync()
+        {
+            var fileFullName = FileServiceProxy.FileToDownload;
+            SendLogMessage($"Starts getting image at: {fileFullName}");
+            var stream = await _fileServer.GetImageAsync(fileFullName);
+            EventAggregator.GetEvent<ImageDownloadeEvent>().Publish(stream);
+
+            return true;
+        }
+        private bool CanDownloadImage()
+        {
+            return CanStartService;
+        }
+
+        public DelegateCommand ResetImageCommand { get; private set; }
+        private void OnResetImage()
+        {
+            EventAggregator.GetEvent<ImageDownloadeEvent>().Publish(null);
+        }
+
+        private bool CanResetImage()
+        {
+            return true;
+        }
+        #endregion
     }
 }

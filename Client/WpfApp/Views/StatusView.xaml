@@ -23,7 +23,7 @@
             </ItemsPanelTemplate>
         </StatusBar.ItemsPanel>
         <StatusBarItem>
-            <TextBlock>Ready</TextBlock>
+            <TextBlock Text="{Binding StatusMessage}" />
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
             <ProgressBar Value="30" Width="80" Height="18"/>

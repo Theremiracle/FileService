@@ -4,10 +4,14 @@
     <Style TargetType="Label">
         <Setter Property="FontWeight" Value="Black" />
         <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
     <Style TargetType="Button">
         <Setter Property="Margin" Value="3,0" />
         <Setter Property="MinWidth" Value="80" />
+        <Setter Property="MinHeight" Value="26" />
+        <Setter Property="Padding" Value="3,0" />
     </Style>
 
     <Style TargetType="DockPanel">

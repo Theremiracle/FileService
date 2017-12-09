@@ -10,10 +10,10 @@ namespace Client.WpfApp.ViewModels
 {
     abstract class ViewModelBase : BindableBase
     {
-        protected readonly IEventAggregator _eventAggregator;
+        public readonly IEventAggregator EventAggregator;
         public ViewModelBase(IEventAggregator eventAggregator)
         {
-            _eventAggregator = eventAggregator;
+            EventAggregator = eventAggregator;
         }
     }
 }
