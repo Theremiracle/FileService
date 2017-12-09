@@ -17,7 +17,8 @@ namespace ServiceProxy
     {
         private readonly HttpClient _client = new HttpClient();
 
-        public const string DefaultWebApiBaseAddress = @"http://localhost:54170/";
+        //public const string DefaultWebApiBaseAddress = @"http://localhost:54170";
+        public const string DefaultWebApiBaseAddress = @"http://localhost/AspWebApi";
 
         public static readonly string TestDataFolder = GetTestDataFolder();
         public static readonly string UploadFolderPath = TestDataFolder + @"\Upload";
