@@ -24,6 +24,7 @@ namespace Client.WpfApp.Commands
             UploadImageCommand = new DelegateCommand(OnUploadImge, CanUploadImage);
             DownloadImageCommand = new DelegateCommand(OnDownloadImge, CanDownloadImage);
             ResetImageCommand = new DelegateCommand(OnResetImage, CanResetImage);
+            ChangeImageCommand = new DelegateCommand(OnChangeImage, CanChangeImage);
         }
 
         public override void RaiseCommandCanExecuteChanged()
@@ -100,6 +101,17 @@ namespace Client.WpfApp.Commands
         }
 
         private bool CanResetImage()
+        {
+            return true;
+        }
+
+        public DelegateCommand ChangeImageCommand { get; private set; }
+        private void OnChangeImage()
+        {
+            EventAggregator.GetEvent<ImageChangeRequestedEvent>().Publish(null);
+        }
+
+        private bool CanChangeImage()
         {
             return true;
         }

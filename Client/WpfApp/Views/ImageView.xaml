@@ -22,7 +22,7 @@
                 <Button Command="{Binding ImageCommands.ChangeImageCommand}">Change Image</Button>
             </StackPanel>
             <Border Style="{StaticResource ImageBorderStyle}">
-                <Image x:Name="UploadedImage" Source="..\Resources\Images\Maps\MapTexas.png" />
+                <Image x:Name="UploadedImage" />
             </Border>
         </DockPanel>
         <DockPanel Grid.Column="2">

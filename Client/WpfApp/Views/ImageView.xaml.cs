@@ -7,6 +7,7 @@ using Microsoft.Practices.Unity;
 using System;
 using Client.WpfApp.Helpers;
 using Client.WpfApp.ViewModels;
+using System.Collections.Generic;
 
 namespace Client.WpfApp.Views
 {
@@ -15,10 +16,21 @@ namespace Client.WpfApp.Views
         public ImageView()
         {
             InitializeComponent();
-            SetDownloadedImage(null);
+
+            SetDownloadedImage();
+            SetUploadedImage();
 
             DataContextChanged += OnDataContextChanged;
         }
+
+        private readonly IList<Uri> _imageUris = new List<Uri>
+        {
+            new Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/Maps/MapUS.jpg"),            
+            new Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/Maps/MapTexas.png"),
+            new Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/Maps/MapHouston.png"),
+            new Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/Maps/MapWorld.jpg")
+        };
+        private int _uploadImageUriIndex = 0;
 
         private void OnDataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
@@ -28,6 +40,7 @@ namespace Client.WpfApp.Views
                 var eventAggregator = viewmodel.EventAggregator;
                 eventAggregator.GetEvent<ImageDownloadeEvent>().Subscribe(OnImageDownloade, ThreadOption.UIThread);
                 eventAggregator.GetEvent<ImageUploadRequestedEvent>().Subscribe(OnImageUploadRequested, ThreadOption.UIThread);
+                eventAggregator.GetEvent<ImageChangeRequestedEvent>().Subscribe(OnImageChangeRequested, ThreadOption.UIThread);
             }
         }
 
@@ -36,11 +49,11 @@ namespace Client.WpfApp.Views
             SetDownloadedImage(stream);
         }
 
-        private void SetDownloadedImage(Stream stream)
+        private void SetDownloadedImage(Stream stream = null)
         {
             if (stream == null)
             {
-                var uri = new Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/Maps/MapUS.jpg");
+                var uri = _imageUris[GetNextUploadImageUriIndex()];
                 DownloadedImage.Source = new BitmapImage(uri);
                 return;
             }
@@ -57,6 +70,22 @@ namespace Client.WpfApp.Views
             var bytes = ImageHelper.ConvertBitmapSourceToByteArray(UploadedImage.Source);
 
             action.Invoke(bytes);
+        }
+
+        private void OnImageChangeRequested(string path)
+        {
+            _uploadImageUriIndex = GetNextUploadImageUriIndex();
+            SetUploadedImage();
+        }
+
+        private void SetUploadedImage()
+        {
+            UploadedImage.Source = new BitmapImage(_imageUris[_uploadImageUriIndex]);
+        }
+
+        private int GetNextUploadImageUriIndex()
+        {
+            return (_uploadImageUriIndex + 1) % _imageUris.Count;
         }
     }
 }

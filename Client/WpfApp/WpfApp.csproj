@@ -84,6 +84,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Events\ImageChangeRequestedEvent.cs" />
     <Compile Include="Events\LogMessageSentOutEvent.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
