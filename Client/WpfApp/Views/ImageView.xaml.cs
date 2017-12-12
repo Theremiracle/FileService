@@ -40,7 +40,7 @@ namespace Client.WpfApp.Views
         {
             if (stream == null)
             {
-                var uri = new Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/MapUS.jpg");
+                var uri = new Uri("pack://application:,,,/Client.WpfApp;component/Resources/Images/Maps/MapUS.jpg");
                 DownloadedImage.Source = new BitmapImage(uri);
                 return;
             }

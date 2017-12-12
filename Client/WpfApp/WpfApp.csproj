@@ -156,6 +156,7 @@
   <ItemGroup>
     <Folder Include="Resources\Behaviors\" />
     <Folder Include="Resources\Controls\" />
+    <Folder Include="Resources\Images\Logos\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\Themes\GenericStyle.xaml">
@@ -180,12 +181,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\MapTexas.png" />
-    <Resource Include="Resources\Images\MapUS.jpg" />
-    <Resource Include="Resources\Images\MapWorld.jpg" />
+    <Resource Include="Resources\Images\Maps\MapTexas.png" />
+    <Resource Include="Resources\Images\Maps\MapUS.jpg" />
+    <Resource Include="Resources\Images\Maps\MapWorld.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="webapi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Maps\MapHouston.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
