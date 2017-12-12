@@ -26,7 +26,6 @@ namespace Client.WpfApp.Helpers
                 srs.CopyPixels(new Int32Rect(0, 0, width, height), ptr, height * stride, stride);
                 using (var btm = new Bitmap(width, height, stride, System.Drawing.Imaging.PixelFormat.Format1bppIndexed, ptr))
                 {
-                    // Clone the bitmap so that we can dispose it and release the unmanaged memory at ptr
                     return new Bitmap(btm);
                 }
             }

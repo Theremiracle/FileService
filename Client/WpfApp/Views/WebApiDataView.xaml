@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Client.WpfApp.Views"
+             xmlns:converters="clr-namespace:Client.WpfApp.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:ByteToImageConverter x:Key="ImageConverter" />
+    </UserControl.Resources>
     <DockPanel>
         <Label DockPanel.Dock="Top">.NET Books:</Label>
         <DataGrid Style="{DynamicResource ReadOnlyDataGrid}" 
@@ -19,6 +23,11 @@
                 <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="60"/>
                 <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="90"/>
             </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Image Height="100" Source="{Binding ImageData, Converter={StaticResource ImageConverter}}" />
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
         </DataGrid>
     </DockPanel>
 </UserControl>

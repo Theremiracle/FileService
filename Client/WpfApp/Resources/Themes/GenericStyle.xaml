@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Client.WpfApp.Resources">
+                    xmlns:local="clr-namespace:Client.WpfApp.Resources"
+                    xmlns:converters="clr-namespace:Client.WpfApp.Converters">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="DataGridStyles.xaml" />
@@ -8,6 +9,9 @@
         <ResourceDictionary Source="TextStyles.xaml" />
         <ResourceDictionary Source="ImageStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <converters:BooleanToVisibilityConverter x:Key="BoolToVisibility" True="Visible" False="Collapsed" />
+    <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityInvert" True="Collapsed" False="Visible" />
 
     <Style TargetType="DockPanel">
         <Setter Property="Margin" Value="0,0" />

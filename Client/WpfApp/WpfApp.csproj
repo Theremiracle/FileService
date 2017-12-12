@@ -84,8 +84,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\BooleanConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\ByteToImageConverter.cs" />
     <Compile Include="Events\ImageChangeRequestedEvent.cs" />
     <Compile Include="Events\LogMessageSentOutEvent.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="ViewModels\ImageViewModel.cs" />
@@ -96,7 +100,7 @@
     <Compile Include="Commands\ImageCommands.cs" />
     <Compile Include="Events\ImageDownloadeEvent.cs" />
     <Compile Include="Events\ImageUploadRequestedEvent.cs" />
-    <Compile Include="Resources\Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="ViewModels\WcfDataViewModel.cs" />
@@ -159,8 +163,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Behaviors\" />
-    <Folder Include="Resources\Controls\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Controls\" />
     <Folder Include="Resources\Images\Books\" />
     <Folder Include="Resources\Images\Logos\" />
   </ItemGroup>
