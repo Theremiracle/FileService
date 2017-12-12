@@ -40,9 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookMgr\GetBooksRequest.cs" />
+    <Compile Include="BookMgr\GetBooksResponse.cs" />
+    <Compile Include="BookMgr\IBookService.cs" />
+    <Compile Include="BookMgr\SaveBooksRequest.cs" />
+    <Compile Include="BookMgr\SaveBooksResponse.cs" />
     <Compile Include="FileRequest.cs" />
     <Compile Include="IFileService.cs" />
+    <Compile Include="IWebApiService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{11D68E28-A306-404A-B4B6-E2EB3FD0843F}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

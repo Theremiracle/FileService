@@ -5,15 +5,17 @@ using Prism.Events;
 using Client.WpfApp.Commands;
 using Client.WpfApp.Events;
 using System;
+using Common.Contract;
 
 namespace Client.WpfApp.ViewModels
 {
     class ShellViewModel : ViewModelBase
     {
+        private readonly IFileService _fileService;
         #region Constructor
-        public ShellViewModel(IEventAggregator eventAggregator) : base(eventAggregator)
+        public ShellViewModel(IFileService fileService, IEventAggregator eventAggregator) : base(eventAggregator)
         {
-            _webApiAddress = FileServiceProxy.DefaultWebApiBaseAddress;
+            _fileService = fileService;
             EventAggregator.GetEvent<LogMessageSentOutEvent>().Subscribe(OnLogMessageSentOut);
             InitializeCommands();
         }
@@ -24,14 +26,21 @@ namespace Client.WpfApp.ViewModels
         }
 
         [InjectionMethod]
-        private void InjectionMethod()        {
-
+        private void InjectionMethod()
+        {
+            _webApiAddress = _fileService.WebApiBaseAddress;
         }
         #endregion
 
         #region Properties
         [Dependency]
         public StatusViewModel StatusViewModel { get; set; }
+
+        [Dependency]
+        public WebApiDataViewModel WebApiDataViewModel { get; set; }
+
+        [Dependency]
+        public WcfDataViewModel WcfDataViewModel { get; set; }
 
         [Dependency]
         public ImageViewModel ImageViewModel { get; set; }

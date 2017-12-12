@@ -82,15 +82,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\BookImages\C# 6.0 and the .NET 4.6 Framework.jpg" />
+    <Content Include="App_Data\BookImages\C# 7.0 in a Nutshell.jpg" />
+    <Content Include="App_Data\BookImages\C# 7.0 Pocket Reference.jpg" />
+    <Content Include="App_Data\BookImages\CLR via C#.jpg" />
+    <Content Include="App_Data\BookImages\Essential Angular for ASP.NET Core MVC.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BookMgrController.cs" />
     <Compile Include="Controllers\FileServiceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -112,8 +119,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -141,9 +146,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53735</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/FileService</IISUrl>
+          <IISUrl>http://localhost/AspWebApi</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost/FileService</IISAppRootUrl>
+          <IISAppRootUrl>http://localhost/AspWebApi</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,6 +1,8 @@
-﻿using Common.Contract;
+﻿using Client.ServiceProxy;
+using Common.Contract;
 using Common.Infrastructure.Utilities;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -9,58 +11,18 @@ using System.Web;
 
 namespace ServiceProxy
 {
-    public class FileServiceProxy : IFileService
+    public class FileServiceProxy : ServiceProxyBase, IFileService
     {
-        private readonly HttpClient _client = new HttpClient();
-
-        //public const string DefaultWebApiBaseAddress = @"http://localhost:54170";
-        public const string DefaultWebApiBaseAddress = @"http://localhost/FileService";
-
-        public static readonly string TestDataFolder = GetTestDataFolder();
         public static readonly string UploadFolderPath = TestDataFolder + @"\Upload";
         public static readonly string DownloadFolderPath = TestDataFolder + @"\Download";
         public static readonly string FileToDownload = TestDataFolder + @"\FileToDownload.png";
-        public static readonly string FileToUpload = TestDataFolder + @"\FileToUpload.jpg";
-
-        private static string GetTestDataFolder()
-        {
-            var dir = AppDomain.CurrentDomain.BaseDirectory;
-            var path = Directory.GetParent(dir).Parent.Parent.Parent.Parent.FullName + @"\TestData";
-            return path;
-        }
-
-        private static string BuildUri(string address, string fileFullName)
-        {
-            var builder = new UriBuilder(address);
-            if (!string.IsNullOrEmpty(fileFullName))
-            {
-                var query = HttpUtility.ParseQueryString(builder.Query);
-                query["FileFullName"] = fileFullName;
-                builder.Query = query.ToString();
-            }
-            string url = builder.ToString();
-
-            return url;
-        }
-
-        public async Task<bool> IsConnectionReadyAsync()
-        {
-            string address = DefaultWebApiBaseAddress + "/api/test";
-            var requestUri = BuildUri(address, string.Empty);
-            var message = await _client.GetAsync(requestUri);
-            if (message.IsSuccessStatusCode)
-            {
-                return true;
-            }
-
-            throw new Exception(message.ToString());
-        }
+        public static readonly string FileToUpload = TestDataFolder + @"\FileToUpload.jpg";      
 
         #region File
         public async Task<bool> GetFileAsync(string fileFullName)
         {
             FileUtil.CheckFileEixsts(fileFullName);
-            string address = DefaultWebApiBaseAddress + "/api/file";
+            string address = WebApiBaseAddress + "/api/file";
             var requestUri = BuildUri(address, fileFullName);
             var message = await _client.GetAsync(requestUri);
 
@@ -91,7 +53,7 @@ namespace ServiceProxy
                 content.Add(fileContent);
 
                 string fileFullNameToBeUploaded = $"{fileUploadFolder}" + @"\" + Path.GetFileName(uploadeFileFullName);
-                string address = DefaultWebApiBaseAddress + "/api/file";
+                string address = WebApiBaseAddress + "/api/file";
                 var requestUri = BuildUri(address, fileFullNameToBeUploaded);
                 var message = await _client.PostAsync(requestUri, content);
 
@@ -106,7 +68,7 @@ namespace ServiceProxy
 
         public async Task<bool> DeleteFileAsync(string fileFullName)
         {
-            string address = DefaultWebApiBaseAddress + "/api/file";
+            string address = WebApiBaseAddress + "/api/file";
             var requestUri = BuildUri(address, fileFullName);
             var message = await _client.DeleteAsync(requestUri);
 
@@ -123,7 +85,7 @@ namespace ServiceProxy
         public async Task<Stream> GetImageAsync(string fileFullName)
         {
             FileUtil.CheckFileEixsts(fileFullName);
-            string address = DefaultWebApiBaseAddress + "/api/file/image";
+            string address = WebApiBaseAddress + "/api/file/image";
             var requestUri = BuildUri(address, fileFullName);
             var message = await _client.GetAsync(requestUri);
 
@@ -147,7 +109,7 @@ namespace ServiceProxy
                 };
                 content.Add(fileContent);
                 
-                string address = DefaultWebApiBaseAddress + "/api/file/image";
+                string address = WebApiBaseAddress + "/api/file/image";
                 var requestUri = BuildUri(address, filePathUploadedTo);
                 var message = await _client.PostAsync(requestUri, content);
 
@@ -160,5 +122,11 @@ namespace ServiceProxy
             }
         }
         #endregion
+
+        private static string BuildUri(string address, string fileFullName)
+        {
+            var dict = new Dictionary<string, string> { { "FileFullName", fileFullName } };
+            return BuildUri(address, dict);
+        }
     }
 }

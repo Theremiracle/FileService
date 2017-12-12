@@ -29,11 +29,18 @@
         </DockPanel>
         <local:StatusView DockPanel.Dock="Bottom" DataContext="{Binding StatusViewModel}"/>
         <TabControl>
+            <TabItem Header="WebApi Data">
+                <local:WebApiDataView DataContext="{Binding WebApiDataViewModel}" />
+            </TabItem>
+            <TabItem Header="WCF Data">
+                <local:WcfDataView DataContext="{Binding WcfDataViewModel}" />
+            </TabItem>
             <TabItem Header="Images">
                 <local:ImageView DataContext="{Binding ImageViewModel}" />
             </TabItem>
             <TabItem Header="Log">
                 <TextBox IsReadOnly="True" Background="LightYellow"
+                         VerticalContentAlignment="Top"
                          Text="{Binding LogMessage, Mode=OneWay}"/>
             </TabItem>
         </TabControl>

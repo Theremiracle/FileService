@@ -96,10 +96,11 @@
     <Compile Include="Commands\ImageCommands.cs" />
     <Compile Include="Events\ImageDownloadeEvent.cs" />
     <Compile Include="Events\ImageUploadRequestedEvent.cs" />
-    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Resources\Helpers\ImageHelper.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="ViewModels\WcfDataViewModel.cs" />
+    <Compile Include="ViewModels\WebApiDataViewModel.cs" />
     <Compile Include="Views\ImageView.xaml.cs">
       <DependentUpon>ImageView.xaml</DependentUpon>
     </Compile>
@@ -111,6 +112,9 @@
     </Compile>
     <Compile Include="Views\WcfDataView.xaml.cs">
       <DependentUpon>WcfDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WebApiDataView.xaml.cs">
+      <DependentUpon>WebApiDataView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +161,7 @@
   <ItemGroup>
     <Folder Include="Resources\Behaviors\" />
     <Folder Include="Resources\Controls\" />
+    <Folder Include="Resources\Images\Books\" />
     <Folder Include="Resources\Images\Logos\" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WcfDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WebApiDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

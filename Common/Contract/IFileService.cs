@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common.Contract
 {
-    public interface IFileService
+    public interface IFileService : IWebApiService
     {
         Task<bool> IsConnectionReadyAsync();
 

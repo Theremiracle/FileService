@@ -1,6 +1,8 @@
-﻿using Client.WpfApp.ViewModels;
+﻿using Client.ServiceProxy;
+using Client.WpfApp.ViewModels;
 using Client.WpfApp.Views;
 using Common.Contract;
+using Common.Contract.BookMgr;
 using Microsoft.Practices.Unity;
 using Prism.Unity;
 using ServiceProxy;
@@ -15,6 +17,7 @@ namespace Client.WpfApp
             base.ConfigureServiceLocator();
 
             Container.RegisterType<IFileService, FileServiceProxy>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IBookService, BookServiceProxy>(new ContainerControlledLifetimeManager());
         }
 
         protected override DependencyObject CreateShell()
