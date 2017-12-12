@@ -4,6 +4,7 @@ using Prism.Commands;
 using Prism.Events;
 using ServiceProxy;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -25,6 +26,7 @@ namespace Client.WpfApp.Commands
             DownloadImageCommand = new DelegateCommand(OnDownloadImge, CanDownloadImage);
             ResetImageCommand = new DelegateCommand(OnResetImage, CanResetImage);
             ChangeImageCommand = new DelegateCommand(OnChangeImage, CanChangeImage);
+            OpenExplorerCommand = new DelegateCommand<string>(OnOpenExplorer, CanOpenExplorer);
         }
 
         public override void RaiseCommandCanExecuteChanged()
@@ -114,6 +116,24 @@ namespace Client.WpfApp.Commands
         private bool CanChangeImage()
         {
             return true;
+        }
+
+        public DelegateCommand<string> OpenExplorerCommand { get; private set; }
+        private void OnOpenExplorer(string upload)
+        {
+            string directory = IsUpload(upload) ? FileServiceProxy.UploadFolderPath : FileServiceProxy.DownloadFolderPath;
+            Process.Start(directory);
+        }
+
+        private bool CanOpenExplorer(string upload)
+        {
+            return true;
+        }
+
+        private static bool IsUpload(string upload)
+        {
+            if (string.IsNullOrEmpty(upload)) return false;
+            return upload.ToLower() == "true";
         }
         #endregion
     }

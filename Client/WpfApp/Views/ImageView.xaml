@@ -17,20 +17,33 @@
         <Border Grid.Column="1" Background="Gray" Width="2" />
         <DockPanel Grid.Column="0">
             <Label DockPanel.Dock="Top">Image to be Uploaded</Label>
-            <StackPanel DockPanel.Dock="Bottom">
-                <Button Command="{Binding ImageCommands.UploadImageCommand}">Upload Image</Button>
-                <Button Command="{Binding ImageCommands.ChangeImageCommand}">Change Image</Button>
-            </StackPanel>
+            <DockPanel DockPanel.Dock="Bottom">
+                <StackPanel DockPanel.Dock="Left">
+                    <Button Command="{Binding ImageCommands.UploadImageCommand}">Upload Image</Button>
+                    <Button Command="{Binding ImageCommands.ChangeImageCommand}">Change Image</Button>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right">
+                    <Button Command="{Binding ImageCommands.OpenExplorerCommand}" CommandParameter="True">Explore</Button>
+                </StackPanel>
+                <ContentControl></ContentControl>
+            </DockPanel>
+            
             <Border Style="{StaticResource ImageBorderStyle}">
                 <Image x:Name="UploadedImage" />
             </Border>
         </DockPanel>
         <DockPanel Grid.Column="2">
             <Label DockPanel.Dock="Top">Image Downloaded</Label>
-            <StackPanel DockPanel.Dock="Bottom">
-                <Button Command="{Binding ImageCommands.DownloadImageCommand}">Download Image</Button>
-                <Button Command="{Binding ImageCommands.ResetImageCommand}">Reset to default Image</Button>
-            </StackPanel>
+            <DockPanel DockPanel.Dock="Bottom">
+                <StackPanel DockPanel.Dock="Left">
+                    <Button Command="{Binding ImageCommands.DownloadImageCommand}">Download Image</Button>
+                    <Button Command="{Binding ImageCommands.ResetImageCommand}">Reset to default Image</Button>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right">
+                    <Button Command="{Binding ImageCommands.OpenExplorerCommand}" CommandParameter="False">Explore</Button>
+                </StackPanel>
+                <ContentControl></ContentControl>
+            </DockPanel>
             <Border Style="{StaticResource ImageBorderStyle}">
                 <Image x:Name="DownloadedImage" />
             </Border>
