@@ -7,7 +7,8 @@
         xmlns:viewModels="clr-namespace:Client.WpfApp.ViewModels"
         mc:Ignorable="d"
         Title="ShellView" Height="600" Width="900" WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance Type=viewModels:ShellViewModel, IsDesignTimeCreatable=False}">
+        d:DataContext="{d:DesignInstance Type=viewModels:ShellViewModel, IsDesignTimeCreatable=False}" 
+        Icon="/Client.WpfApp;component/webapi.png">
     <DockPanel Margin="5,5,5,0">
         <DockPanel DockPanel.Dock="Top">
             <Label DockPanel.Dock="Left">Web API Address: </Label>

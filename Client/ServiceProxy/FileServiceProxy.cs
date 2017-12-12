@@ -1,13 +1,9 @@
 ﻿using Common.Contract;
 using Common.Infrastructure.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -18,7 +14,7 @@ namespace ServiceProxy
         private readonly HttpClient _client = new HttpClient();
 
         //public const string DefaultWebApiBaseAddress = @"http://localhost:54170";
-        public const string DefaultWebApiBaseAddress = @"http://localhost/AspWebApi";
+        public const string DefaultWebApiBaseAddress = @"http://localhost/FileService";
 
         public static readonly string TestDataFolder = GetTestDataFolder();
         public static readonly string UploadFolderPath = TestDataFolder + @"\Upload";
@@ -42,7 +38,6 @@ namespace ServiceProxy
                 query["FileFullName"] = fileFullName;
                 builder.Query = query.ToString();
             }
-
             string url = builder.ToString();
 
             return url;
@@ -53,7 +48,6 @@ namespace ServiceProxy
             string address = DefaultWebApiBaseAddress + "/api/test";
             var requestUri = BuildUri(address, string.Empty);
             var message = await _client.GetAsync(requestUri);
-
             if (message.IsSuccessStatusCode)
             {
                 return true;

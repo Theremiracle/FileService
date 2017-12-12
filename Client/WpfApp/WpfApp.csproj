@@ -184,5 +184,8 @@
     <Resource Include="Resources\Images\MapUS.jpg" />
     <Resource Include="Resources\Images\MapWorld.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="webapi.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
