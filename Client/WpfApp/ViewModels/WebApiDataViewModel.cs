@@ -22,7 +22,15 @@ namespace Client.WpfApp.ViewModels
         [InjectionMethod]
         public void InjectionMethod()
         {
-            _bookService.GetBooksAsync(null);
+            ReloadData();
+        }
+
+        private async void ReloadData()
+        {
+            var books = await _bookService.GetAllBooksAsync();
+
+            Books = new ObservableCollection<Book>(books);
+            RaisePropertyChanged(nameof(Books));
         }
 
         public ObservableCollection<Book> Books { get; private set; }

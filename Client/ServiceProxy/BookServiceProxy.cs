@@ -5,19 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Infrastructure.Entities;
+using Newtonsoft.Json;
 
 namespace Client.ServiceProxy
 {
     public class BookServiceProxy : ServiceProxyBase, IBookService
     {
-        public async Task<bool> GetAllBooksAsync()
+        public async Task<IList<Book>> GetAllBooksAsync()
         {
-            return await Task.Run(() => true);
+            string address = WebApiBaseAddress + "/api/book";
+            var requestUri = BuildUri(address);
+            var response = await _client.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var books = JsonConvert.DeserializeObject<List<Book>>(content);
+
+                return books;
+            }
+
+            throw new Exception(response.ToString());
         }
 
-        public async Task<bool> GetBooksAsync(IList<int> bookIds)
+        public async Task<IList<Book>> GetBooksAsync(IList<int> bookIds)
         {
-            return await Task.Run(() => true);
+            return await Task.Run(() => new List<Book>());
         }
 
         public async Task<bool> CreateBooksAsync(IList<Book> books)

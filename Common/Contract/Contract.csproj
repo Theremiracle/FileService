@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,11 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookMgr\DeleteBookRequest.cs" />
     <Compile Include="BookMgr\GetBooksRequest.cs" />
     <Compile Include="BookMgr\GetBooksResponse.cs" />
     <Compile Include="BookMgr\IBookService.cs" />
-    <Compile Include="BookMgr\SaveBooksRequest.cs" />
-    <Compile Include="BookMgr\SaveBooksResponse.cs" />
+    <Compile Include="BookMgr\AddBooksRequest.cs" />
+    <Compile Include="BookMgr\UpdateBookRequest.cs" />
     <Compile Include="FileRequest.cs" />
     <Compile Include="IFileService.cs" />
     <Compile Include="IWebApiService.cs" />
@@ -55,6 +60,9 @@
       <Project>{11D68E28-A306-404A-B4B6-E2EB3FD0843F}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

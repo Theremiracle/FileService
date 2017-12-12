@@ -11,9 +11,9 @@ namespace Common.Contract.BookMgr
     {
         Task<bool> IsConnectionReadyAsync();
 
-        Task<bool> GetAllBooksAsync();
+        Task<IList<Book>> GetAllBooksAsync();
 
-        Task<bool> GetBooksAsync(IList<int> bookIds);
+        Task<IList<Book>> GetBooksAsync(IList<int> bookIds);
 
         Task<bool> CreateBooksAsync(IList<Book> books);
 
