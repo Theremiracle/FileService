@@ -12,20 +12,36 @@
     </UserControl.Resources>
     <DockPanel>
         <Label DockPanel.Dock="Top">.NET Books:</Label>
+        <Border DockPanel.Dock="Bottom" Style="{StaticResource ImageBorderStyle}" Height="300">
+            <Image x:Name="BookImage" Source="{Binding SelectedBook.ImageData, Converter={StaticResource ImageConverter}}"/>
+        </Border>
         <DataGrid Style="{DynamicResource ReadOnlyDataGrid}" 
                   ItemsSource="{Binding Books, Mode=OneWay}" 
                   SelectedItem="{Binding SelectedBook, Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="160"/>
-                <DataGridTextColumn Header="Author" Binding="{Binding Author}" MinWidth="120"/>
-                <DataGridTextColumn Header="Publish Date" Binding="{Binding PublishDate}" Width="120"/>
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="70"/>
-                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="60"/>
-                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="90"/>
+                <DataGridTextColumn Header="Name"
+                                    Binding="{Binding Name}" MinWidth="160"/>
+                <DataGridTextColumn Header="Author" 
+                                    Binding="{Binding Author}" MinWidth="120"/>
+                <DataGridTextColumn Header="Publish Date" 
+                                    Binding="{Binding PublishDate}" Width="120"/>
+                <DataGridTextColumn Header="Price" 
+                                    Binding="{Binding Price}" Width="70"/>
+                <DataGridTextColumn Header="Quantity" 
+                                    Binding="{Binding Quantity}" Width="60"/>
+                <DataGridTextColumn Header="Amount" 
+                                    Binding="{Binding Amount}" Width="90"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <Image Height="100" Source="{Binding ImageData, Converter={StaticResource ImageConverter}}" />
+                    <Border BorderThickness="0" Background="BlanchedAlmond" Padding="10">
+                        <DockPanel>
+                            <Image DockPanel.Dock="Right" Height="100" 
+                                   Source="{Binding ImageData, Converter={StaticResource ImageConverter}}" />
+                            <Label Content="{Binding Name}" 
+                                   VerticalAlignment="Top" HorizontalAlignment="Right" />
+                        </DockPanel>
+                    </Border>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>

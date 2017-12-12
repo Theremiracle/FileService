@@ -34,5 +34,15 @@ namespace Client.WpfApp.ViewModels
         }
 
         public ObservableCollection<Book> Books { get; private set; }
+
+        private Book _selectedBook;
+        public Book SelectedBook
+        {
+            get { return _selectedBook; }
+            set
+            {
+                SetProperty(ref _selectedBook, value);
+            }
+        }
     }
 }
