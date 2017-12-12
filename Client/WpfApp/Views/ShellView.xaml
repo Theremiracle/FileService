@@ -12,8 +12,7 @@
     <DockPanel Margin="5,5,5,0">
         <DockPanel DockPanel.Dock="Top">
             <Label DockPanel.Dock="Left">Web API Address: </Label>
-            <TextBox Text="{Binding WebApiAddress}"
-                     VerticalAlignment="Top"/>
+            <TextBox Text="{Binding WebApiAddress}" VerticalAlignment="Top"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <StackPanel DockPanel.Dock="Left">

@@ -26,7 +26,7 @@
             <TextBlock Text="{Binding StatusMessage}" />
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
-            <ProgressBar Value="30" Width="80" Height="18"/>
+            <ProgressBar Value="30" Width="120" Height="18"/>
         </StatusBarItem>
         <StatusBarItem Grid.Column="2">
             <TextBlock>Set</TextBlock>
