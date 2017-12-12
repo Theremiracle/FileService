@@ -14,9 +14,10 @@ namespace Server.AspWebApi.Controllers
     public class FileServiceController : ApiController
     {
         [HttpGet]
+        [Route("api/test")]
         public HttpResponseMessage Test()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, "Test");
+            return Request.CreateResponse(HttpStatusCode.OK, "File Service is ready!");
         }
 
         #region File

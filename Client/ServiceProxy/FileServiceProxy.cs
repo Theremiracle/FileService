@@ -50,7 +50,7 @@ namespace ServiceProxy
 
         public async Task<bool> IsConnectionReadyAsync()
         {
-            string address = DefaultWebApiBaseAddress + "/api/fileservice/test";
+            string address = DefaultWebApiBaseAddress + "/api/test";
             var requestUri = BuildUri(address, string.Empty);
             var message = await _client.GetAsync(requestUri);
 
