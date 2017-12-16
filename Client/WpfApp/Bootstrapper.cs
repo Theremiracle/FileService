@@ -33,5 +33,10 @@ namespace Client.WpfApp
         {
             Application.Current.MainWindow.Show();
         }
+
+        private void TestGit()
+        {
+            
+        }
     }
 }
