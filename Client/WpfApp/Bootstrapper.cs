@@ -36,6 +36,7 @@ namespace Client.WpfApp
 
         private void TestGit()
         {
+            // Add something from git branch: TestGit01
             //Add changes from MacPro
         }
     }
